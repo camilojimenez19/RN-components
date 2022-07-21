@@ -8,8 +8,17 @@ import { AlertScreen } from '../screens/AlertScreen';
 import { TextInputScreen } from '../screens/TextInputScreen';
 import { PullToRefreshScreen } from '../screens/PullToRefreshScreen';
 
+export type RootStackParams = {
+  HomeScreen: undefined,
+  Animation101Screen: { name: string },
+  Animation102Screen: { name: string },
+  SwitchScreen: { name: string },
+  AlertScreen: { name: string },
+  TextInputScreen: { name: string },
+  PullToRefreshScreen: { name: string }
+}
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootStackParams>();
 
 export const StackNavigator = () => {
   return (

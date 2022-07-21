@@ -1,10 +1,16 @@
+import { StackScreenProps } from '@react-navigation/stack';
 import React, { useState } from 'react';
 import { RefreshControl, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { HeaderTitle } from '../components/HeaderTitle';
+import { RootStackParams } from '../navigation/StackNavigator';
 import { styles } from '../theme/appTheme';
 
-export const PullToRefreshScreen = () => {
+interface Props extends StackScreenProps<RootStackParams, 'PullToRefreshScreen'> { }
+
+export const PullToRefreshScreen = ({ route }: Props) => {
+
+    const { name } = route.params
 
     const [refreshing, setRefreshing] = useState(false);
     const [data, setData] = useState<string>();
@@ -31,7 +37,7 @@ export const PullToRefreshScreen = () => {
             }
         >
             <View style={styles.globalMargin}>
-                <HeaderTitle title="Pull To Refresh" />
+                <HeaderTitle title={name} />
 
                 {
                     data && <HeaderTitle title={data} />

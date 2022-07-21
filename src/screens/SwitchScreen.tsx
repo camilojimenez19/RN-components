@@ -1,10 +1,15 @@
+import { StackScreenProps } from '@react-navigation/stack';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { CustomSwitch } from '../components/CustomSwitch';
 import { HeaderTitle } from '../components/HeaderTitle';
+import { RootStackParams } from '../navigation/StackNavigator';
 
-export const SwitchScreen = () => {
+interface Props extends StackScreenProps<RootStackParams, 'SwitchScreen'> { }
 
+export const SwitchScreen = ({ route }: Props) => {
+
+    const {name} = route.params
 
     const [state, setState] = useState({
         isActive: false,
@@ -25,7 +30,7 @@ export const SwitchScreen = () => {
     return (
         <View style={{ marginHorizontal: 20 }}>
 
-            <HeaderTitle title='Switches' />
+            <HeaderTitle title={name} />
 
             <View style={ styles.switchRow }>
                 <Text style={ styles.switchText }>Is Active </Text>

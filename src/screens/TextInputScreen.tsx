@@ -1,11 +1,17 @@
+import { StackScreenProps } from '@react-navigation/stack';
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { CustomSwitch } from '../components/CustomSwitch';
 import { HeaderTitle } from '../components/HeaderTitle';
 import { useForm } from '../hooks/useForm';
+import { RootStackParams } from '../navigation/StackNavigator';
 import { styles } from '../theme/appTheme';
 
-export const TextInputScreen = () => {
+interface Props extends StackScreenProps<RootStackParams, 'TextInputScreen'> { }
+
+export const TextInputScreen = ({ route }: Props) => {
+
+    const { name } = route.params
 
     const { form, onChange, isSuscribe } = useForm({
         name: '',
@@ -20,7 +26,7 @@ export const TextInputScreen = () => {
         >
             <ScrollView>
                 <View style={styles.globalMargin}>
-                    <HeaderTitle title='TextInputs' />
+                    <HeaderTitle title={name} />
 
                     <TextInput
                         style={stylesScreen.inputStyle}

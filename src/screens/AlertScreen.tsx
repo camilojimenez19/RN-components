@@ -1,10 +1,15 @@
+import { StackScreenProps } from '@react-navigation/stack';
 import React from 'react';
 import { Alert, Button, Text, View } from 'react-native';
 import { HeaderTitle } from '../components/HeaderTitle';
+import { RootStackParams } from '../navigation/StackNavigator';
 import { styles } from '../theme/appTheme';
 
-export const AlertScreen = () => {
+interface Props extends StackScreenProps<RootStackParams, 'AlertScreen'>{}
 
+export const AlertScreen = ({ route }: Props) => {
+
+    const { name } = route.params
     const showAlert = () => {
         Alert.alert(
             "Titulo",
@@ -34,7 +39,7 @@ export const AlertScreen = () => {
 
     return (
         <View style={styles.globalMargin}>
-            <HeaderTitle title='Alert' />
+            <HeaderTitle title={name} />
 
             <Button title='Mostrar Alerta' onPress={showAlert} />
             <Button title='Mostrar Prompt' onPress={showPrompt} />
