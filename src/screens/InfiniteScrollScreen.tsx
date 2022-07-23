@@ -28,7 +28,13 @@ export const InfiniteScrollScreen = ({ route }: Props) => {
 
     const renderItem = ( item: number ) => {
         return (
-            <FadeInImage uri={`https://picsum.photos/id/${item}/500/400`} />
+            <FadeInImage 
+                uri={`https://picsum.photos/id/${item}/500/400`} 
+                style={{
+                    width: '100%',
+                    height: 400,
+                }}
+            />
         );        
     };
 
@@ -38,7 +44,11 @@ export const InfiniteScrollScreen = ({ route }: Props) => {
                 data={numbers}
                 keyExtractor={ (item) => item.toString() }
                 renderItem={({ item }) => renderItem(item) }
-                ListHeaderComponent={() => <HeaderTitle title={name} />}
+                ListHeaderComponent={() => (
+                    <View style={ styles.globalMargin }>
+                        <HeaderTitle title={name} />
+                    </View>
+                )}
                 showsVerticalScrollIndicator={ false }
                 onEndReached={ loadMore }
                 onEndReachedThreshold={0.5}
