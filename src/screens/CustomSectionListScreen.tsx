@@ -4,7 +4,7 @@ import { SectionList, Text, View } from 'react-native';
 import { RootStackParams } from '../navigation/StackNavigator';
 import { HeaderTitle } from '../components/HeaderTitle';
 import { styles } from '../theme/appTheme';
-import { ItemSeparator } from '../components/itemSeparator';
+import { ItemSeparator } from '../components/ItemSeparator';
 
 interface Props extends StackScreenProps<RootStackParams, 'CustomSectionListScreen'> { }
 

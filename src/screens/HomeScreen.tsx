@@ -2,9 +2,9 @@ import React from 'react';
 import { FlatList, Text, View } from 'react-native';
 import { FlatListMenuItem } from '../components/FlatListMenuItem';
 import { HeaderTitle } from '../components/HeaderTitle';
-import { ItemSeparator } from '../components/itemSeparator';
 import { menuItems } from '../data/menuItems';
 import { styles } from '../theme/appTheme';
+import { ItemSeparator } from '../components/ItemSeparator';
 
 
 
