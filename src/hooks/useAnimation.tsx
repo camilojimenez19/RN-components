@@ -8,15 +8,15 @@ export const useAnimation = () => {
 
     /** Configuracion por defecto del Animated */
     const configInt = {
-        duration: 1000,
+        duration: 300,
         useNativeDriver: true
     }
 
     /** Funcion para realizar el FadeIn */
-    const fadeIn = () => {
+    const fadeIn = ( duration: number = 300 ) => {
         Animated.timing(
             opacity,
-            { toValue: 1, ...configInt }
+            { toValue: 1, duration, useNativeDriver: true }
         ).start();
 
         
