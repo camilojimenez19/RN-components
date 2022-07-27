@@ -1,28 +1,38 @@
 import { StackScreenProps } from '@react-navigation/stack';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { CustomSwitch } from '../components/CustomSwitch';
 import { HeaderTitle } from '../components/HeaderTitle';
+import { ThemeContext } from '../context/themeContext/ThemeContext';
 import { RootStackParams } from '../navigation/StackNavigator';
 
 interface Props extends StackScreenProps<RootStackParams, 'SwitchScreen'> { }
 
+
+
 export const SwitchScreen = ({ route }: Props) => {
 
-    const {name} = route.params
+    /* Obtenemos el contexto del tema */
+    const { theme: { colors } } = useContext(ThemeContext);
 
+    /* Obtener el nombre de la pantalla por parametros */
+    const { name } = route.params
+
+    /* Creamos el estado para los switches */
     const [state, setState] = useState({
         isActive: false,
         isHungry: false,
         isHappy: true
     });
 
-    const {isActive, isHappy, isHungry} = state;
+    /* Obtenemos los diferentes estados del objeto */
+    const { isActive, isHappy, isHungry } = state;
 
-    const onChange = (value: boolean, field: keyof typeof state ) => {
+    /* Funcion para cambiar el estado de un campo especifico */
+    const onChange = (value: boolean, field: keyof typeof state) => {
         setState({
-           ...state,
-           [field]: value 
+            ...state,
+            [field]: value
         })
     };
 
@@ -32,32 +42,32 @@ export const SwitchScreen = ({ route }: Props) => {
 
             <HeaderTitle title={name} />
 
-            <View style={ styles.switchRow }>
-                <Text style={ styles.switchText }>Is Active </Text>
-                <CustomSwitch 
+            <View style={styles.switchRow}>
+                <Text style={{...styles.switchText, color: colors.text}}>Is Active </Text>
+                <CustomSwitch
                     isOn={isActive}
-                    onChange={( value ) => onChange(value, 'isActive')} 
+                    onChange={(value) => onChange(value, 'isActive')}
                 />
             </View>
-            
-            <View style={ styles.switchRow }>
-                <Text style={ styles.switchText }>Is Hungry </Text>
-                <CustomSwitch 
+
+            <View style={styles.switchRow}>
+                <Text style={{...styles.switchText, color: colors.text}}>Is Hungry </Text>
+                <CustomSwitch
                     isOn={isHungry}
-                    onChange={( value ) => onChange(value, 'isHungry')} 
+                    onChange={(value) => onChange(value, 'isHungry')}
                 />
             </View>
 
-            <View style={ styles.switchRow }>
-                <Text style={ styles.switchText }>Is Happy </Text>
-                <CustomSwitch 
+            <View style={styles.switchRow}>
+                <Text style={{...styles.switchText, color: colors.text}}>Is Happy </Text>
+                <CustomSwitch
                     isOn={isHappy}
-                    onChange={( value ) => onChange(value, 'isHappy')} 
+                    onChange={(value) => onChange(value, 'isHappy')}
                 />
             </View>
-            
 
-            <Text style={styles.switchText}>
+
+            <Text style={{...styles.switchText, color: colors.text}}>
                 {JSON.stringify(state, null, 5)}
             </Text>
 
@@ -70,7 +80,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginVertical: 5        
+        marginVertical: 5
     },
     switchText: {
         fontSize: 25

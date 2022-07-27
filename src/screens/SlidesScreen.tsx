@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Image, Text, useWindowDimensions, View, StyleSheet, ScrollView, Animated } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import Carousel from 'react-native-reanimated-carousel';
@@ -10,10 +10,14 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useAnimation } from '../hooks/useAnimation';
 import { useNavigation } from '@react-navigation/native';
+import { ThemeContext } from '../context/themeContext/ThemeContext';
 
 interface Props extends StackScreenProps<RootStackParams, 'SlidesScreen'> { }
 
 export const SlidesScreen = ({ route }: Props) => {
+
+    /* Obtenemos el contexto del tema */
+    const { theme: { colors } } = useContext(ThemeContext)
 
     const { width, height } = useWindowDimensions()
     const { opacity, fadeIn } = useAnimation()
@@ -23,8 +27,8 @@ export const SlidesScreen = ({ route }: Props) => {
         return (
             <View style={styles.containerSlider} >
                 <Image source={item.img} style={styles.image} />
-                <Text style={styles.title}>{item.title}</Text>
-                <Text style={styles.subtitle}>{item.desc}</Text>
+                <Text style={{ ...styles.title, color: colors.primary }}>{item.title}</Text>
+                <Text style={{ ...styles.subtitle, color: colors.text }}>{item.desc}</Text>
             </View>
 
         )
@@ -43,7 +47,7 @@ export const SlidesScreen = ({ route }: Props) => {
                 height={height * 0.9}
                 loop={false}
                 onSnapToItem={(index) => {
-                    if(index === (items.length - 1)) 
+                    if (index === (items.length - 1))
                         fadeIn()
                 }}
             />
@@ -54,11 +58,11 @@ export const SlidesScreen = ({ route }: Props) => {
                 marginTop: 10,
                 opacity
             }}>
-                <TouchableOpacity 
-                    style={styles.backButton}
+                <TouchableOpacity
+                    style={{...styles.backButton, backgroundColor: colors.primary}}
                     onPress={() => navigation.navigate('HomeScreen' as any)}
                 >
-                    <Text style={ styles.buttonText }>ENTRAR</Text>
+                    <Text style={{ ...styles.buttonText  }}>ENTRAR</Text>
                     <Icon
                         name='chevron-forward-outline'
                         size={20}
@@ -93,7 +97,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     backButton: {
-        backgroundColor: '#5856D6',
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
@@ -101,7 +104,7 @@ const styles = StyleSheet.create({
         padding: 5,
         width: 150
     },
-    buttonText:{
+    buttonText: {
         fontSize: 20,
         fontWeight: 'bold',
         color: 'white'

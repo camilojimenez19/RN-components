@@ -1,8 +1,9 @@
 import { StackScreenProps } from '@react-navigation/stack';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Animated, StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { HeaderTitle } from '../components/HeaderTitle';
+import { ThemeContext } from '../context/themeContext/ThemeContext';
 import { useAnimation } from '../hooks/useAnimation';
 import { RootStackParams } from '../navigation/StackNavigator';
 import { styles } from '../theme/appTheme';
@@ -11,10 +12,13 @@ interface Props extends StackScreenProps<RootStackParams, 'Animation101Screen'> 
 
 export const Animation101Screen = ({ route }: Props) => {
 
+    /* Obtenemos el nombre del scren por props */
     const { name } = route.params
 
+    /* Llamamos el custom hook de animacion */
     const { opacity, position, fadeIn, fadeOut, startMovingPosition } = useAnimation();
 
+    const {theme: { colors } } = useContext(ThemeContext)
     return (
         <View style={{flex: 1, ...styles.globalMargin}}>
             <HeaderTitle title={name} />
@@ -22,6 +26,7 @@ export const Animation101Screen = ({ route }: Props) => {
 
                 <Animated.View style={{
                     ...stylesScreen.purpleBox,
+                    backgroundColor: colors.primary,
                     opacity,
                     transform: [{
                         translateY: position
@@ -31,7 +36,7 @@ export const Animation101Screen = ({ route }: Props) => {
 
                 <View style={stylesScreen.buttonContainer}>
                     <TouchableOpacity
-                        style={stylesScreen.button}
+                        style={{...stylesScreen.button, backgroundColor: colors.primary }}
                         onPress={() => {
                             fadeIn()
                             startMovingPosition(100)
@@ -39,7 +44,7 @@ export const Animation101Screen = ({ route }: Props) => {
                     >
                         <Text style={stylesScreen.buttonText}>FadeOut</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={stylesScreen.button} onPress={fadeOut}><Text style={stylesScreen.buttonText}>FadeOut</Text></TouchableOpacity>
+                    <TouchableOpacity style={{...stylesScreen.button, backgroundColor: colors.primary}} onPress={fadeOut}><Text style={stylesScreen.buttonText}>FadeOut</Text></TouchableOpacity>
                 </View>
             </View>
         </View>
@@ -53,7 +58,6 @@ const stylesScreen = StyleSheet.create({
         alignItems: 'center'
     },
     purpleBox: {
-        backgroundColor: '#5856D6',
         width: 150,
         height: 150
     },
@@ -62,7 +66,6 @@ const stylesScreen = StyleSheet.create({
     },
     button: {
         marginHorizontal: 10,
-        backgroundColor: '#00b4d8',
         padding: 10,
         borderRadius: 5
     },

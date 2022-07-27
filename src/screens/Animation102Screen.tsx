@@ -1,7 +1,8 @@
 import { StackScreenProps } from '@react-navigation/stack';
-import React, { useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import { Animated, PanResponder, StyleSheet, Text, View } from 'react-native';
 import { HeaderTitle } from '../components/HeaderTitle';
+import { ThemeContext } from '../context/themeContext/ThemeContext';
 import { RootStackParams } from '../navigation/StackNavigator';
 import { styles } from '../theme/appTheme';
 
@@ -12,6 +13,8 @@ export const Animation102Screen = ({ route }: Props) => {
     const { name } = route.params
 
     const pan = useRef(new Animated.ValueXY()).current
+
+    const { theme: { colors }} = useContext(ThemeContext)
 
     const panResponder = PanResponder.create({
         onStartShouldSetPanResponder: () => true,
@@ -40,7 +43,7 @@ export const Animation102Screen = ({ route }: Props) => {
 
                 <Animated.View
                     {...panResponder.panHandlers}
-                    style={[pan.getLayout(), stylesScreen.purpleBox]}
+                    style={[pan.getLayout(), stylesScreen.purpleBox, { backgroundColor: colors.primary }]}
                 />
             </View>
         </View>
@@ -54,7 +57,6 @@ const stylesScreen = StyleSheet.create({
         alignItems: 'center'
     },
     purpleBox: {
-        backgroundColor: '#75CEDB',
         width: 150,
         height: 150,
         borderRadius: 4,

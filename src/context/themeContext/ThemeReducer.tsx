@@ -5,11 +5,16 @@ type ThemeAction =
     | { type: 'set_light_theme'}
     | { type: 'set_dark_theme'}
 
+interface InputStyle{
+    borderColor: string;
+    color: string;
+}
 
 /* Definimos que estado tiene la aplicacion */
 export interface ThemeState extends Theme{
     currentTheme: 'light' | 'dark',
     dividerColor: string;
+    inputStyle: InputStyle;
 }
 
 /* Definimos los parametros para el light theme */
@@ -20,10 +25,14 @@ export const lightTheme: ThemeState = {
     colors: {
         primary: '#084F6A',
         background: 'white',
-        card: 'green',
+        card: 'white',
         text: 'black',
-        border: 'orange',
-        notification: 'real'
+        border: 'black',
+        notification: 'teal'
+    },
+    inputStyle:{
+        borderColor: 'rgba(0,0,0,0.3)',
+        color: 'black',
     }
 }
 
@@ -31,14 +40,18 @@ export const lightTheme: ThemeState = {
 export const darkTheme: ThemeState = {
     currentTheme: 'dark',
     dark: true,
-    dividerColor: 'rgba(0,0,0,0.7)',
+    dividerColor: 'rgba(255,255,255,0.7)',
     colors: {
         primary: '#75CEDB',
         background: 'black',
-        card: 'green',
+        card: 'black',
         text: 'white',
-        border: 'orange',
-        notification: 'real'
+        border: 'white',
+        notification: 'teal'
+    },
+    inputStyle:{
+        borderColor: 'rgba(255,255,255,0.3)',
+        color: 'white',
     }
 }
 
