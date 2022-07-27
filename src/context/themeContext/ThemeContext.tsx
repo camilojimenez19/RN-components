@@ -1,6 +1,7 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import { createContext } from "react";
-import { lightTheme, themeReducer, ThemeState } from './ThemeReducer';
+import { useColorScheme } from "react-native";
+import { lightTheme, themeReducer, ThemeState, darkTheme } from './ThemeReducer';
 
 /* Definimos como esta conformado el context */
 interface ThemeContextProps {
@@ -15,8 +16,19 @@ export const ThemeContext = createContext({} as ThemeContextProps);
 /* Provider */
 export const ThemeProvider = ({ children }: any) => {
 
+    /* Verificamos el tema actual de la app */
+    const colorsScheme = useColorScheme();
+    const currentTheme = (colorsScheme === 'dark') ? darkTheme : lightTheme;
+
     /* Datos por defecto del tema */
-    const [theme, dispatch] = useReducer(themeReducer, lightTheme)
+    const [theme, dispatch] = useReducer(themeReducer, currentTheme);
+
+    useEffect(() => {      
+        (colorsScheme === 'light')
+            ? setLightTheme()
+            : setDarkTheme();    
+    }, [colorsScheme])
+    
 
     /* Funcion para cambiar al tema dark */
     const setDarkTheme = () => {
